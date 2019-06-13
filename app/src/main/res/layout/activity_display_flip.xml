@@ -6,38 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".DisplayFlipActivity">
 
-    <TextView
-        android:id="@+id/flipResult"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+    <Button
+        android:id="@+id/screenButton2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/coin_screen"
+        android:longClickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <TextView
+        android:id="@+id/flipResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/screenButton2"
+        app:layout_constraintEnd_toEndOf="@+id/screenButton2"
+        app:layout_constraintStart_toStartOf="@+id/screenButton2"
+        app:layout_constraintTop_toTopOf="@+id/screenButton2" />
 
     <TextView
         android:id="@+id/accX"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="92dp"
-        app:layout_constraintTop_toBottomOf="@+id/flipResult"
-        tools:layout_editor_absoluteX="186dp" />
+        app:layout_constraintEnd_toEndOf="@+id/screenButton2"
+        app:layout_constraintStart_toStartOf="@+id/screenButton2"
+        app:layout_constraintTop_toBottomOf="@+id/flipResult" />
 
     <TextView
         android:id="@+id/accY"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintTop_toBottomOf="@+id/accX"
-        tools:layout_editor_absoluteX="186dp" />
+        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="@+id/screenButton2"
+        app:layout_constraintStart_toStartOf="@+id/screenButton2"
+        app:layout_constraintTop_toBottomOf="@+id/accX" />
 
     <TextView
         android:id="@+id/accZ"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintTop_toBottomOf="@+id/accY"
-        tools:layout_editor_absoluteX="183dp" />
+        android:layout_marginTop="35dp"
+        app:layout_constraintEnd_toEndOf="@+id/screenButton2"
+        app:layout_constraintStart_toStartOf="@+id/screenButton2"
+        app:layout_constraintTop_toBottomOf="@+id/accY" />
 </android.support.constraint.ConstraintLayout>

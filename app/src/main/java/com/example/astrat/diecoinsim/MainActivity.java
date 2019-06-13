@@ -18,6 +18,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.astrat.diecoinsim.MESSAGE";
     private int mButtonPresses = 1;
+    private int mDieSides = 2;
+    private int mDieQuantity = 1;
+    private boolean mIsFlipped = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +29,58 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView tv = findViewById(R.id.dieSelection);
-        tv.setText(Integer.toString(mButtonPresses) + "d6");
+        tv.setText(Integer.toString(mButtonPresses) + "d" + Integer.toString(mDieSides));
 
         final Button button = findViewById(R.id.screenButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mButtonPresses++;
-                if(mButtonPresses >= 7)
-                    mButtonPresses = 1;
+                if(!mIsFlipped)
+                    mDieQuantity++;
+                mIsFlipped = false;
+                if(mDieQuantity >= 7)
+                    mDieQuantity = 1;
                 // Code here executes on main thread after user presses button
                 TextView tv = findViewById(R.id.dieSelection);
-                tv.setText(Integer.toString(mButtonPresses) + "d6");
+                tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+            }
+        });
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(!mIsFlipped)
+                    mDieSides = mDieSides+2;
+                mIsFlipped=false;
+                if(mDieSides > 20)
+                    mDieSides = 2;
+                // Code here executes on main thread after user presses button
+                TextView tv = findViewById(R.id.dieSelection);
+                tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                return true;
+            }
+        });
 
 
+        final Button flipbutton = findViewById(R.id.flipButton);
+        flipbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                TextView tv = findViewById(R.id.dieSelection);
 
+                String disp = Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides) + "\n| " ;
+                int tot = 0;
+                for(int ind = 0; ind <  mDieQuantity; ind++)
+                {
+                    int val = (int)(1+Math.random()*mDieSides);
+                    tot += val;
+                    disp += Integer.toString(val);
+                    disp += " | ";
+                }
+                disp += "\nTotal:";
+                disp += Integer.toString(tot);
+
+
+                tv.setText(disp);
+                mIsFlipped=true;
             }
         });
 
@@ -67,15 +108,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, DisplayFlipActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.flipResult);
-        //String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, mButtonPresses);
-        startActivity(intent);
-
-    }
 
 }
