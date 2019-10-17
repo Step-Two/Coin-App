@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private int mDieSides = 2;
     private int mDieQuantity = 1;
     private boolean mIsFlipped = false;
+    private boolean mSwitchClick = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,27 +35,32 @@ public class MainActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.screenButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!mIsFlipped)
-                    mDieQuantity++;
-                mIsFlipped = false;
-                if(mDieQuantity >= 7)
-                    mDieQuantity = 1;
-                // Code here executes on main thread after user presses button
-                TextView tv = findViewById(R.id.dieSelection);
-                tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                if(!mSwitchClick){
+                    if(!mIsFlipped)
+                        mDieQuantity++;
+                    mIsFlipped = false;
+                    if(mDieQuantity >= 7)
+                        mDieQuantity = 1;
+                    // Code here executes on main thread after user presses button
+                    TextView tv = findViewById(R.id.dieSelection);
+                    tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                }
+                if(mSwitchClick) {
+                    if(!mIsFlipped)
+                        mDieSides = mDieSides+2;
+                    mIsFlipped=false;
+                    if(mDieSides > 20)
+                        mDieSides = 2;
+                    // Code here executes on main thread after user presses button
+                    TextView tv = findViewById(R.id.dieSelection);
+                    tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                }
             }
         });
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(!mIsFlipped)
-                    mDieSides = mDieSides+2;
-                mIsFlipped=false;
-                if(mDieSides > 20)
-                    mDieSides = 2;
-                // Code here executes on main thread after user presses button
-                TextView tv = findViewById(R.id.dieSelection);
-                tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                mSwitchClick = !mSwitchClick;
                 return true;
             }
         });
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                 tv.setText(disp);
                 mIsFlipped=true;
+                mSwitchClick=false;
             }
         });
 
