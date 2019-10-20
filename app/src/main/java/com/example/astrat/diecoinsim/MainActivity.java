@@ -43,17 +43,19 @@ public class MainActivity extends AppCompatActivity {
                         mDieQuantity = 1;
                     // Code here executes on main thread after user presses button
                     TextView tv = findViewById(R.id.dieSelection);
-                    tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                    tv.setText(Integer.toString(mDieQuantity) + " d" + Integer.toString(mDieSides));
                 }
                 if(mSwitchClick) {
                     if(!mIsFlipped)
                         mDieSides = mDieSides+2;
+                    if(mDieSides > 12 && mDieSides < 20)
+                        mDieSides = 20;
                     mIsFlipped=false;
                     if(mDieSides > 20)
                         mDieSides = 2;
                     // Code here executes on main thread after user presses button
                     TextView tv = findViewById(R.id.dieSelection);
-                    tv.setText(Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides));
+                    tv.setText(Integer.toString(mDieQuantity) + "d " + Integer.toString(mDieSides));
                 }
             }
         });
@@ -61,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 mSwitchClick = !mSwitchClick;
+                if(mSwitchClick) {
+                    TextView tv = findViewById(R.id.dieSelection);
+                    tv.setText(Integer.toString(mDieQuantity) + "d " + Integer.toString(mDieSides));
+                }
+                if(!mSwitchClick) {
+                    TextView tv = findViewById(R.id.dieSelection);
+                    tv.setText(Integer.toString(mDieQuantity) + " d" + Integer.toString(mDieSides));
+                }
                 return true;
             }
         });
