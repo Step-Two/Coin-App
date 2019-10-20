@@ -72,16 +72,17 @@ public class MainActivity extends AppCompatActivity {
                 // Code here executes on main thread after user presses button
                 TextView tv = findViewById(R.id.dieSelection);
 
-                String disp = Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides) + "\n| " ;
+                String disp = Integer.toString(mDieQuantity) + "d" + Integer.toString(mDieSides) + "\n" ;
                 int tot = 0;
                 for(int ind = 0; ind <  mDieQuantity; ind++)
                 {
                     int val = (int)(1+Math.random()*mDieSides);
                     tot += val;
                     disp += Integer.toString(val);
-                    disp += " | ";
+                    if(ind < mDieQuantity - 1)
+                        disp += ", ";
                 }
-                disp += "\nTotal:";
+                disp += "\nTotal: ";
                 disp += Integer.toString(tot);
 
 
